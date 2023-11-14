@@ -10,14 +10,14 @@ function EditProjectPage(props) {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
 
-    const {projectId} =  useParams();
+    const { projectId } = useParams();
 
     const navigate = useNavigate();
 
     useEffect(() => {
         // GET /project/:projectId
         axios.get(`${API_URL}/projects/${projectId}`)
-            .then( response => {
+            .then(response => {
                 setTitle(response.data.title);
                 setDescription(response.data.description);
             })
@@ -30,7 +30,7 @@ function EditProjectPage(props) {
 
     const handleFormSubmit = (e) => {
         e.preventDefault();
-        
+
         // prepare an object with the data that we send to the api
         const requestBody = {
             title: title,
@@ -39,11 +39,23 @@ function EditProjectPage(props) {
 
         // send PUT request
         axios.put(`${API_URL}/projects/${projectId}`, requestBody)
-            .then( response => {
+            .then(response => {
                 navigate(`/projects/${projectId}`);
             })
             .catch((error) => {
                 console.log("Error updating project...");
+                console.log(error);
+            })
+    }
+
+
+    const deleteProject = () => {
+        axios.delete(`${API_URL}/projects/${projectId}`)
+            .then( response => {
+                navigate("/projects");
+            })
+            .catch((error) => {
+                console.log("Error deleting project...");
                 console.log(error);
             })
     }
@@ -75,9 +87,11 @@ function EditProjectPage(props) {
                     />
                 </label>
 
-
                 <button type="submit">Update Project</button>
             </form>
+
+            <button onClick={deleteProject}>Delete Project</button>
+
         </div>
     );
 }
