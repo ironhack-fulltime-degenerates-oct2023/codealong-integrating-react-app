@@ -8,10 +8,7 @@ const API_URL = "https://project-management-api-4641927fee65.herokuapp.com";
 
 function ProjectListPage(){
 
-    console.log("ProjectListPage has been invoked....")
-
     const [projects, setProjects] = useState([]);
-
 
     const getAllProjects = () => {
         axios.get(API_URL + "/projects?_embed=tasks")
@@ -34,6 +31,12 @@ function ProjectListPage(){
     return (
         <div className="ProjectListPage">
             <h2>List of projects:</h2>
+
+            <Link to="/projects/create">
+                <p>
+                    <button>Create Project</button>
+                </p>
+            </Link>
 
             {projects.map((project) => {
                 return (
