@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 
-const API_URL = "https://project-management-api-4641927fee65.herokuapp.com";
 
 
 function EditProjectPage(props) {
@@ -16,7 +15,7 @@ function EditProjectPage(props) {
 
     useEffect(() => {
         // GET /project/:projectId
-        axios.get(`${API_URL}/projects/${projectId}`)
+        axios.get(`${import.meta.env.VITE_API_URL}/projects/${projectId}`)
             .then(response => {
                 setTitle(response.data.title);
                 setDescription(response.data.description);
@@ -38,7 +37,7 @@ function EditProjectPage(props) {
         }
 
         // send PUT request
-        axios.put(`${API_URL}/projects/${projectId}`, requestBody)
+        axios.put(`${import.meta.env.VITE_API_URL}/projects/${projectId}`, requestBody)
             .then(response => {
                 navigate(`/projects/${projectId}`);
             })
@@ -50,7 +49,7 @@ function EditProjectPage(props) {
 
 
     const deleteProject = () => {
-        axios.delete(`${API_URL}/projects/${projectId}`)
+        axios.delete(`${import.meta.env.VITE_API_URL}/projects/${projectId}`)
             .then( response => {
                 navigate("/projects");
             })

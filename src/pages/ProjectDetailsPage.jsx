@@ -3,7 +3,6 @@ import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import AddTask from "../components/AddTask";
 
-const API_URL = "https://project-management-api-4641927fee65.herokuapp.com";
 
 
 function ProjectDetailsPage(props) {
@@ -13,7 +12,7 @@ function ProjectDetailsPage(props) {
     const { projectId } = useParams();
 
     const getProject = () => {
-        axios.get(`${API_URL}/projects/${projectId}?_embed=tasks`)
+        axios.get(`${import.meta.env.VITE_API_URL}/projects/${projectId}?_embed=tasks`)
             .then((response) => {
                 setProject(response.data);
             })
